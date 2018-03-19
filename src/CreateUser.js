@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserForm = () => {
+const CreateUser = () => {
   return (
     <div>
       <input />
@@ -9,4 +9,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default CreateUser;

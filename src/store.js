@@ -2,9 +2,14 @@ import { createStore } from 'redux';
 
 const reducer = (state = [], action) => {
   switch (action.type ) {
-    case 'SET_USERS':
+    case 'CREATE_USERS':
       state = action.users;
       break;
+    case 'CREATE_USER':
+      state = action.users;
+      break;
+    default:
+      return;
   }
   return state;
 };

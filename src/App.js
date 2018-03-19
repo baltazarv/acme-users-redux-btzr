@@ -1,9 +1,9 @@
 import React from 'react';
-import { Component } from 'react-dom';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import Nav from './Nav';
 import Users from './Users';
-import UserForm from './UserForm';
+import CreateUser from './CreateUser';
+import UpdateUser from './UpdateUser';
 import store from './store';
 
 const App = () => {
@@ -12,23 +12,23 @@ const App = () => {
       <div>
         <Nav />
         <Route exact path="/" component={ Users } />
-        <Route exact path="/create/user" component={ UserForm } />
+        <Route exact path="/users/create" component={ CreateUser } />
+        <Route path="/users/:id" component={ UpdateUser } />
       </div>
     </Router>
   );
 };
 
 const users = [
-  { id: 1, name: 'moe' },
-  { id: 1, name: 'larry' }
+  { id: 1, name: 'Baltazar' },
+  { id: 2, name: 'Melchior' },
+  { id: 3, name: 'Gaspiar' }
 ];
 
-setTimeout(() => {
-  store.dispatch({
-    type: 'SET_USERS',
+store.dispatch({
+    type: 'CREATE_USERS',
     users
   });
-}, 3000);
 
 store.subscribe(() => {
   console.log(store.getState());

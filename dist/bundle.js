@@ -18277,8 +18277,6 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(18);
-
 var _reactRouterDom = __webpack_require__(47);
 
 var _Nav = __webpack_require__(77);
@@ -18289,9 +18287,13 @@ var _Users = __webpack_require__(76);
 
 var _Users2 = _interopRequireDefault(_Users);
 
-var _UserForm = __webpack_require__(78);
+var _CreateUser = __webpack_require__(101);
 
-var _UserForm2 = _interopRequireDefault(_UserForm);
+var _CreateUser2 = _interopRequireDefault(_CreateUser);
+
+var _UpdateUser = __webpack_require__(102);
+
+var _UpdateUser2 = _interopRequireDefault(_UpdateUser);
 
 var _store = __webpack_require__(79);
 
@@ -18308,19 +18310,18 @@ var App = function App() {
       null,
       _react2.default.createElement(_Nav2.default, null),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Users2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/create/user', component: _UserForm2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/create', component: _CreateUser2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id', component: _UpdateUser2.default })
     )
   );
 };
 
-var users = [{ id: 1, name: 'moe' }, { id: 1, name: 'larry' }];
+var users = [{ id: 1, name: 'Baltazar' }, { id: 2, name: 'Melchior' }, { id: 3, name: 'Gaspiar' }];
 
-setTimeout(function () {
-  _store2.default.dispatch({
-    type: 'SET_USERS',
-    users: users
-  });
-}, 3000);
+_store2.default.dispatch({
+  type: 'CREATE_USERS',
+  users: users
+});
 
 _store2.default.subscribe(function () {
   console.log(_store2.default.getState());
@@ -23416,6 +23417,8 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(47);
+
 var _store = __webpack_require__(79);
 
 var _store2 = _interopRequireDefault(_store);
@@ -23473,11 +23476,17 @@ var Users = function (_Component) {
         _react2.default.createElement(
           'ul',
           null,
-          _react2.default.createElement(
-            'li',
-            null,
-            'users'
-          )
+          users.map(function (user) {
+            return _react2.default.createElement(
+              'li',
+              { key: user.id },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/users/${ user.id }' },
+                user.name
+              )
+            );
+          })
         )
       );
     }
@@ -23525,7 +23534,7 @@ var Nav = function Nav() {
       null,
       _react2.default.createElement(
         _reactRouterDom.Link,
-        { to: '/create/user' },
+        { to: '/users/create' },
         'Create User'
       )
     )
@@ -23535,38 +23544,7 @@ var Nav = function Nav() {
 exports.default = Nav;
 
 /***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UserForm = function UserForm() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement('input', null),
-    _react2.default.createElement(
-      'button',
-      null,
-      'Create User'
-    )
-  );
-};
-
-exports.default = UserForm;
-
-/***/ }),
+/* 78 */,
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23584,9 +23562,14 @@ var reducer = function reducer() {
   var action = arguments[1];
 
   switch (action.type) {
-    case 'SET_USERS':
+    case 'CREATE_USERS':
       state = action.users;
       break;
+    case 'CREATE_USER':
+      state = action.users;
+      break;
+    default:
+      return;
   }
   return state;
 };
@@ -24625,6 +24608,76 @@ function applyMiddleware() {
     };
   };
 }
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CreateUser = function CreateUser() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement('input', null),
+    _react2.default.createElement(
+      'button',
+      null,
+      'Create User'
+    )
+  );
+};
+
+exports.default = CreateUser;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UpdateUser = function UpdateUser() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement('input', null),
+    _react2.default.createElement(
+      'button',
+      null,
+      'Update'
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'button',
+      null,
+      'Delete'
+    )
+  );
+};
+
+exports.default = UpdateUser;
 
 /***/ })
 /******/ ]);
